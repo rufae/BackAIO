@@ -10,16 +10,19 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name = "chat", schema = "AIO", catalog = "postgres")
+@Table(name = "chat", schema = "aio")
 public class Chat {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_id")
     private Integer chatId;
 
-    @Column(name = "grupo_id")
-    private Integer grupoId; // Referencia a la tabla Grupos
+    @ManyToOne
+    @JoinColumn(name = "grupo_id", referencedColumnName = "grupo_id", nullable = false)
+    private Grupos grupo;
 
-    @Column(name = "usuario_id")
-    private Integer usuarioId; // Referencia a la tabla Usuario
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id", nullable = false)
+    private Usuario usuario;
 }

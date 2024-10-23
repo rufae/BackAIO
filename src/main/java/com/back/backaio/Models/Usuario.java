@@ -12,26 +12,27 @@ import java.util.Date;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name = "usuarios", schema = "AIO", catalog = "postgres")
+@Table(name = "usuario", schema = "aio")
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usuario_id")
     private Integer usuarioId;
 
-    @Column(name = "cliente_id")
-    private Integer clienteId; // Este debe estar relacionado con la tabla Clientes
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", referencedColumnName = "cliente_id", nullable = false)
+    private Clientes cliente;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "contraseña")
+    @Column(name = "contraseña", nullable = false)
     private String contraseña;
 
     @Column(name = "rol")
     private String rol;
 
-    @Column(name = "fecha_registro")
-    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_registro", nullable = false)
     private Date fechaRegistro;
 }

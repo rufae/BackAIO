@@ -10,19 +10,17 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name = "alojamientos", schema = "AIO")
+@Table(name = "alojamientos", schema = "aio")
 public class Alojamientos {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "alojamiento_id")
     private Integer alojamientoId;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     @Column(name = "descripcion")
     private String descripcion;
-
-    @Column(name = "sitio_id")
-    private Integer sitioId; // Referencia a la tabla Sitios
 }

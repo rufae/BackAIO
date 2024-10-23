@@ -3,7 +3,7 @@ package com.back.backaio.Models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.security.Timestamp;
 
 @Getter
 @Setter
@@ -12,26 +12,28 @@ import java.util.Date;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name = "mensajes", schema = "AIO", catalog = "postgres")
+@Table(name = "mensajes", schema = "aio")
 public class Mensajes {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mensaje_id")
     private Integer mensajeId;
 
-    @Column(name = "chat_id")
-    private Integer chatId; // Referencia a la tabla Chat
+    @ManyToOne
+    @JoinColumn(name = "chat_id", referencedColumnName = "chat_id", nullable = false)
+    private Chat chat;
 
-    @Column(name = "usuario_id")
-    private Integer usuarioId; // Referencia a la tabla Usuario
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id", nullable = false)
+    private Usuario usuario;
 
-    @Column(name = "contenido", columnDefinition = "TEXT")
+    @Column(name = "contenido", nullable = false)
     private String contenido;
 
-    @Column(name = "fecha_envio")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaEnvio;
+    @Column(name = "fecha_envio", nullable = false)
+    private Timestamp fechaEnvio;
 
     @Column(name = "imagen")
-    private byte[] imagen;
+    private String imagen;
 }

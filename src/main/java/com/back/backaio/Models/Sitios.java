@@ -10,18 +10,22 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name = "sitios", schema = "AIO")
+@Table(name = "sitios", schema = "aio")
 public class Sitios {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sitio_id")
     private Integer sitioId;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "tipo")
-    private String tipo; // Podrías definir un enum si los tipos son limitados
+    @Column(name = "tipo", nullable = false)
+    private String tipo;
+
+    @Column(name = "tipo_especifico")
+    private String tipoEspecifico;
 
     @Column(name = "descripcion")
     private String descripcion;
@@ -36,8 +40,8 @@ public class Sitios {
     private Float distancia;
 
     @Column(name = "calidad")
-    private Integer calidad; // Asegúrate de manejar el rango (1-5)
+    private Integer calidad;
 
     @Column(name = "reseñas_publicas")
-    private String reseñasPublicas;
+    private String resenasPublicas;
 }

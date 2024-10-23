@@ -12,20 +12,20 @@ import java.util.Date;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name = "grupos", schema = "AIO", catalog = "postgres")
+@Table(name = "grupos", schema = "aio")
 public class Grupos {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "grupo_id")
     private Integer grupoId;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "fecha_creacion")
-    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_creacion", nullable = false)
     private Date fechaCreacion;
 }

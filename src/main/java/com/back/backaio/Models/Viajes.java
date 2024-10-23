@@ -12,31 +12,31 @@ import java.util.Date;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name = "viajes", schema = "AIO", catalog = "postgres")
+@Table(name = "viajes", schema = "aio")
 public class Viajes {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "viaje_id")
     private Integer viajeId;
 
-    @Column(name = "usuario_id")
-    private Integer usuarioId; // Referencia a la tabla Usuario
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id", nullable = false)
+    private Usuario usuario;
 
-    @Column(name = "lugar")
+    @Column(name = "lugar", nullable = false)
     private String lugar;
 
-    @Column(name = "fecha_inicio")
-    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_inicio", nullable = false)
     private Date fechaInicio;
 
-    @Column(name = "fecha_vuelta")
-    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_vuelta", nullable = false)
     private Date fechaVuelta;
 
-    @Column(name = "numero_adultos")
+    @Column(name = "numero_adultos", nullable = false)
     private Integer numeroAdultos;
 
-    @Column(name = "numero_ninos")
+    @Column(name = "numero_ninos", nullable = false)
     private Integer numeroNinos;
 
     @Column(name = "numero_habitaciones")

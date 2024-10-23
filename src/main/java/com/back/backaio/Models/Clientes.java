@@ -12,20 +12,21 @@ import java.util.Date;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name = "clientes", schema = "AIO", catalog = "postgres")
+@Table(name = "clientes", schema = "aio")
 public class Clientes {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cliente_id")
     private Integer clienteId;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "apellidos")
+    @Column(name = "apellidos", nullable = false)
     private String apellidos;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "telefono")
@@ -35,6 +36,5 @@ public class Clientes {
     private String direccion;
 
     @Column(name = "fecha_nacimiento")
-    @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
 }
