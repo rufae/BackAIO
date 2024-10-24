@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,19 +22,38 @@ public class Usuario {
     @Column(name = "usuario_id")
     private Integer usuarioId;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", referencedColumnName = "cliente_id", nullable = false)
-    private Clientes cliente;
-
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "contraseña", nullable = false)
-    private String contraseña;
+    @Column(name = "password")
+    private String password;
 
-    @Column(name = "rol")
-    private String rol;
-
-    @Column(name = "fecha_registro", nullable = false)
+    @Column(name = "fechaRegistro")
     private Date fechaRegistro;
+
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Perfil perfil;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Viaje> viajes;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Mensaje> mensajes;
+
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_grupo",
+            schema = "aio",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "grupo_id")
+    )
+    private Set<Grupo> grupos;
+
+    @OneToMany(mappedBy = "creador", cascade = CascadeType.ALL)
+    private List<Propuesta> propuestasCreadas;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Voto> votosEmitidos;
+
 }

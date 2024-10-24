@@ -10,13 +10,13 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name = "ocio", schema = "aio")
-public class Ocio {
+@Table(name = "restaurante", schema = "aio")
+public class Restaurante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ocio_id")
-    private Integer ocioId;
+    @Column(name = "restaurante_id")
+    private Integer restauranteId;
 
     @Column(name = "nombre")
     private String nombre;
@@ -28,9 +28,9 @@ public class Ocio {
     @JoinColumn(name = "actividad_id", referencedColumnName = "actividad_id")
     private Actividad actividad;
 
-    // Campos específicos de Ocio
-    private String tipoActividad; // Ej: Teatro, Cine, Concierto
+    // Campos específicos de Restaurante
+    private String tipoCocina;
     private String horario;
-    private String localizacion;
-    private String requisitos; // Ej: Edad mínima, equipo especial
+    private String direccion;
+    private double valoracionMedia;
 }

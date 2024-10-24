@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,13 +21,26 @@ public class Itinerario {
     @Column(name = "itinerario_id")
     private Integer itinerarioId;
 
-    @Column(name = "fecha_ida", nullable = false)
+    @Column(name = "fechaIda")
     private Date fechaIda;
 
-    @Column(name = "fecha_vuelta", nullable = false)
+    @Column(name = "fechaVuelta")
     private Date fechaVuelta;
 
+
+    @ManyToMany
+    @JoinTable(
+            name = "itinerario_actividad",
+            schema = "aio",
+            joinColumns = @JoinColumn(name = "itinerario_id"),
+            inverseJoinColumns = @JoinColumn(name = "actividad_id")
+    )
+    private Set<Actividad> actividades;
+
+    @ManyToMany(mappedBy = "itinerarios")
+    private Set<Viaje> viajes;
+
     @ManyToOne
-    @JoinColumn(name = "viaje_id", referencedColumnName = "viaje_id", nullable = false)
-    private Viajes viaje;
+    @JoinColumn(name = "usuario_creador_id", referencedColumnName = "usuario_id")
+    private Usuario usuarioCreador;
 }
