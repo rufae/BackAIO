@@ -42,6 +42,4 @@ public class Perfil {
     @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id")
     private Usuario usuario;
 
-    // Campos específicos del cliente
-    private String informacionDetallada;
 }

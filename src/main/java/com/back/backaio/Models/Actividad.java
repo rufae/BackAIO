@@ -2,7 +2,6 @@ package com.back.backaio.Models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -34,22 +33,11 @@ public class Actividad {
     @Column(name = "resenas")
     private String resenas;
 
-
     @Column(name = "guardada")
     private boolean guardada;
 
-    @OneToOne(mappedBy = "actividad", cascade = CascadeType.ALL)
-    private Alojamiento alojamiento;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "tipo_actividad", nullable = false)
+    private TipoActividad tipoActividad;
 
-    @OneToOne(mappedBy = "actividad", cascade = CascadeType.ALL)
-    private Excursion excursion;
-
-    @OneToOne(mappedBy = "actividad", cascade = CascadeType.ALL)
-    private Ocio ocio;
-
-    @OneToOne(mappedBy = "actividad", cascade = CascadeType.ALL)
-    private Restaurante restaurante;
-
-    @ManyToMany(mappedBy = "actividades")
-    private Set<Itinerario> itinerarios;
 }

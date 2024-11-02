@@ -30,6 +30,7 @@ public class Propuesta {
     @Column(name = "aprobada")
     private boolean aprobada;
 
+
     @ManyToOne
     @JoinColumn(name = "creador_id", referencedColumnName = "usuario_id")
     private Usuario creador;
@@ -42,7 +43,8 @@ public class Propuesta {
     @JoinColumn(name = "actividad_id", referencedColumnName = "actividad_id")
     private Actividad actividad;
 
-    @OneToMany(mappedBy = "propuesta", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "propuesta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Voto> votos;
+
 
 }

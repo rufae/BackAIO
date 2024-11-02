@@ -21,6 +21,11 @@ public class Voto {
     @Column(name = "votoAFavor")
     private boolean votoAFavor;
 
+
+    @ManyToOne
+    @JoinColumn(name = "actividad_id", referencedColumnName = "actividad_id", nullable = false)
+    private Actividad actividad;
+
     @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id")
     private Usuario usuario;

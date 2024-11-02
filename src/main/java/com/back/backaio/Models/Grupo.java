@@ -1,5 +1,6 @@
 package com.back.backaio.Models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +20,7 @@ public class Grupo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "grupo_id")
-    private Integer grupoId;
+    private Long grupoId;
 
     @Column(name = "nombre")
     private String nombre;
@@ -28,12 +29,19 @@ public class Grupo {
     private String descripcion;
 
     @Column(name = "fechaCreacion")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date fechaCreacion;
 
-    @ManyToMany(mappedBy = "grupos")
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_grupo",
+            schema = "aio",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "grupo_id")
+    )
     private Set<Usuario> usuarios;
 
-    @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL)
-    private Set<Propuesta> propuestas;
+
+
 
 }

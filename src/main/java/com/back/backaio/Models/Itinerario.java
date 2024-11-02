@@ -37,9 +37,6 @@ public class Itinerario {
     )
     private Set<Actividad> actividades;
 
-    @ManyToMany(mappedBy = "itinerarios")
-    private Set<Viaje> viajes;
-
     @ManyToOne
     @JoinColumn(name = "usuario_creador_id", referencedColumnName = "usuario_id")
     private Usuario usuarioCreador;
