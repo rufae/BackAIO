@@ -32,12 +32,7 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public List<Usuario> listarAmigos(Long usuarioId) {
-        return usuarioRepository.findById(usuarioId)
-                .map(usuario -> {
-                    Set<Usuario> amigosSet = usuario.getAmigos();
-                    return new ArrayList<>(amigosSet);
-                })
-                .orElseGet(ArrayList::new);
+        return usuarioRepository.obtenerAmigos(usuarioId);
     }
 
     @Override
