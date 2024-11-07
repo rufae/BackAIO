@@ -6,6 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ActividadDTO {
+
+    private Long grupo_id;
     private String calidad;
     private String distancia;
     private String pais;

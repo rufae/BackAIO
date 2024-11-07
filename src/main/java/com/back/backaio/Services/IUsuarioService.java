@@ -14,7 +14,7 @@ public interface IUsuarioService {
 
     Propuesta proponerActividad(Long usuarioId, ActividadDTO actividadDTO);
 
-    Voto votarActividad(Long actividadId, Long usuarioId, Boolean votoAFavor);
+    VotoDTO votarActividad(Long actividadId, Long usuarioId, Boolean votoAFavor);
 
     List<ActividadConVotosDTO> verActividades(Long grupoId);
 }

@@ -44,7 +44,8 @@ public class UsuarioService implements IUsuarioService {
     }
 
     public Propuesta proponerActividad(Long usuarioId, ActividadDTO actividadDTO) {
-        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         Actividad actividad = new Actividad();
         actividad.setCalidad(actividadDTO.getCalidad());
@@ -57,29 +58,42 @@ public class UsuarioService implements IUsuarioService {
 
         actividad = actividadRepository.save(actividad);
 
+
+        Grupo grupo = grupoRepository.findById(actividadDTO.getGrupo_id())
+                .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
+
         Propuesta propuesta = new Propuesta();
         propuesta.setDescripcion("Propuesta de actividad por el usuario " + usuario.getUsername());
         propuesta.setFechaPropuesta(new Date());
         propuesta.setAprobada(false);
         propuesta.setCreador(usuario);
         propuesta.setActividad(actividad);
+        propuesta.setGrupo(grupo);
 
         return propuestaRepository.save(propuesta);
     }
 
-    public Voto votarActividad(Long actividadId, Long usuarioId, Boolean votoAFavor) {
+    public VotoDTO votarActividad(Long actividadId, Long usuarioId, Boolean votoAFavor) {
         Actividad actividad = actividadRepository.findById(actividadId)
                 .orElseThrow(() -> new RuntimeException("Actividad no encontrada"));
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
+        Propuesta propuesta = propuestaRepository.findByActividad(actividad)
+                .orElseThrow(() -> new RuntimeException("Propuesta no encontrada para esta actividad"));
+
         Voto voto = new Voto();
         voto.setActividad(actividad);
         voto.setUsuario(usuario);
         voto.setVotoAFavor(votoAFavor);
+        voto.setPropuesta(propuesta);
 
-        return votoRepository.save(voto);
+        voto = votoRepository.save(voto);
+
+        // Transformar Voto en VotoDTO antes de devolverlo
+        return new VotoDTO(voto.getVotoId(), voto.isVotoAFavor(), actividad.getActividadId(), usuario.getUsuarioId());
     }
+
 
     public List<ActividadConVotosDTO> verActividades(Long grupoId) {
 
@@ -91,7 +105,7 @@ public class UsuarioService implements IUsuarioService {
         return propuestas.stream().map(propuesta -> {
             Actividad actividad = propuesta.getActividad();
 
-            Long votosAFavor =  propuesta.getVotos().stream().filter(Voto::isVotoAFavor).count();
+            Long votosAFavor = propuesta.getVotos().stream().filter(Voto::isVotoAFavor).count();
             Long votosEnContra = propuesta.getVotos().stream().filter(voto -> !voto.isVotoAFavor()).count();
 
             ActividadConVotosDTO dto = new ActividadConVotosDTO();
@@ -105,7 +119,15 @@ public class UsuarioService implements IUsuarioService {
             dto.setVotosAFavor(votosAFavor);
             dto.setVotosEnContra(votosEnContra);
 
+            // Convertir los votos de la propuesta a una lista de VotoDTO y asignarla al DTO de actividad
+            List<VotoDTO> votosDTO = propuesta.getVotos().stream()
+                    .map(voto -> new VotoDTO(voto.getVotoId(), voto.isVotoAFavor(), voto.getActividad().getActividadId(), voto.getUsuario().getUsuarioId()))
+                    .collect(Collectors.toList());
+
+            dto.setVotos(votosDTO); // Asegúrate de que ActividadConVotosDTO tiene este campo
+
             return dto;
         }).collect(Collectors.toList());
     }
+
 }

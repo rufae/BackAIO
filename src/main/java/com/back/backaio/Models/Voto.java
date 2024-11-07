@@ -16,7 +16,7 @@ public class Voto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "voto_id")
-    private Integer votoId;
+    private Long votoId;
 
     @Column(name = "votoAFavor")
     private boolean votoAFavor;
@@ -31,7 +31,7 @@ public class Voto {
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "propuesta_id", referencedColumnName = "propuesta_id")
+    @JoinColumn(name = "propuesta_id", referencedColumnName = "propuesta_id", nullable = false)
     private Propuesta propuesta;
 
 }

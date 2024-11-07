@@ -48,8 +48,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/viaje/actividad/votar")
-    public ResponseEntity<Voto> votarActividad(@RequestParam Long actividadId, @RequestParam Long usuarioId, @RequestParam Boolean votoAFavor) {
-        Voto voto = usuarioService.votarActividad(actividadId, usuarioId, votoAFavor);
+    public ResponseEntity<VotoDTO> votarActividad(@RequestParam Long actividadId, @RequestParam Long usuarioId, @RequestParam Boolean votoAFavor) {
+        VotoDTO voto = usuarioService.votarActividad(actividadId, usuarioId, votoAFavor);
         return ResponseEntity.ok(voto);
     }
 
