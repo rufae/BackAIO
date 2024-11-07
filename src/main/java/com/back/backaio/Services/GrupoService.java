@@ -1,10 +1,12 @@
 package com.back.backaio.Services;
 
-import com.back.backaio.Models.Grupo;
-import com.back.backaio.Models.Usuario;
+import com.back.backaio.Model.Grupo;
+import com.back.backaio.Model.Usuario;
 import com.back.backaio.Repository.GrupoRepository;
 import com.back.backaio.Repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GrupoService implements IGrupoService{
@@ -15,6 +17,11 @@ public class GrupoService implements IGrupoService{
     public GrupoService(GrupoRepository gruporepository, UsuarioRepository usuariorepository) {
         this.gruporepository = gruporepository;
         this.usuariorepository = usuariorepository;
+    }
+
+    @Override
+    public List<Grupo> obtenerTodosLosGrupos() {
+        return gruporepository.findAll();
     }
 
     @Override

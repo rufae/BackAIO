@@ -1,7 +1,11 @@
 package com.back.backaio.Controllers;
 
 
-import com.back.backaio.Models.*;
+import com.back.backaio.DTO.ActividadConVotosDTO;
+import com.back.backaio.DTO.ActividadDTO;
+import com.back.backaio.DTO.UsuarioDTO;
+import com.back.backaio.DTO.VotoDTO;
+import com.back.backaio.Model.*;
 import com.back.backaio.Services.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +23,8 @@ public class UsuarioController {
     }
 
     @GetMapping("/amigos")
-    public ResponseEntity<List<Usuario>> listarAmigos(@RequestParam Long usuarioId) {
-        List<Usuario> amigos = usuarioService.listarAmigos(usuarioId);
+    public ResponseEntity<List<UsuarioDTO>> listarAmigos(@RequestParam Long usuarioId) {
+        List<UsuarioDTO> amigos = usuarioService.listarAmigos(usuarioId);
         if (!amigos.isEmpty()) {
             return ResponseEntity.ok(amigos);
         } else {

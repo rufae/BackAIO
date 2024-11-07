@@ -1,10 +1,11 @@
 package com.back.backaio.Controllers;
 
 
-import com.back.backaio.Models.Grupo;
+import com.back.backaio.Model.Grupo;
 import com.back.backaio.Services.GrupoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,12 +13,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/viaje")
+@CrossOrigin(origins = "http://localhost:4200")
 public class GrupoController {
 
     private final GrupoService grupoService;
 
     public GrupoController(GrupoService grupoService) {
         this.grupoService = grupoService;
+    }
+
+    @GetMapping("/todos")
+    public ResponseEntity<List<Grupo>> obtenerTodosLosGrupos() {
+        List<Grupo> grupos = grupoService.obtenerTodosLosGrupos();
+        return ResponseEntity.ok(grupos);
     }
 
     @PostMapping("/nuevo")

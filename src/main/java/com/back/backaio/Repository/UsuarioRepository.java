@@ -1,6 +1,6 @@
 package com.back.backaio.Repository;
 
-import com.back.backaio.Models.Usuario;
+import com.back.backaio.Model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +18,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     boolean sonAmigos(@Param("idOrigen") Long idOrigen, @Param("idDestino") Long idDestino);
 
     @Query("SELECT a FROM Usuario u JOIN u.amigos a " +
-            "WHERE (u.usuarioId = :idUsuario OR a.usuarioId = :idUsuario) " +
-            "AND a.usuarioId <> :idUsuario")
+            "WHERE u.usuarioId = :idUsuario OR a.usuarioId = :idUsuario")
     List<Usuario> obtenerAmigos(@Param("idUsuario") Long idUsuario);
+
 }

@@ -1,8 +1,8 @@
 package com.back.backaio.Repository;
 
-import com.back.backaio.Models.Actividad;
-import com.back.backaio.Models.Grupo;
-import com.back.backaio.Models.Propuesta;
+import com.back.backaio.Model.Actividad;
+import com.back.backaio.Model.Grupo;
+import com.back.backaio.Model.Propuesta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

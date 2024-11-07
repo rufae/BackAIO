@@ -130,3 +130,8 @@ CREATE TABLE Sitios_Tipos (
 
                               PRIMARY KEY (sitio_id, tipo)
 );
+
+INSERT INTO Usuario (fecha_registro, password, username) VALUES (CURRENT_DATE, '1234', 'rafa');
+INSERT INTO Usuario (fecha_registro, password, username) VALUES (CURRENT_DATE, '123', 'Javi');
+INSERT INTO Usuario (fecha_registro, password, username) VALUES (CURRENT_DATE, '12', 'JJ');
+

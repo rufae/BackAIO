@@ -1,4 +1,4 @@
-package com.back.backaio.Models;
+package com.back.backaio.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;

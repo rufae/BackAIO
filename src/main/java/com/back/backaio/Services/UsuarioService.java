@@ -1,6 +1,10 @@
 package com.back.backaio.Services;
 
-import com.back.backaio.Models.*;
+import com.back.backaio.DTO.ActividadConVotosDTO;
+import com.back.backaio.DTO.ActividadDTO;
+import com.back.backaio.DTO.UsuarioDTO;
+import com.back.backaio.DTO.VotoDTO;
+import com.back.backaio.Model.*;
 import com.back.backaio.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +35,12 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public List<Usuario> listarAmigos(Long usuarioId) {
-        return usuarioRepository.obtenerAmigos(usuarioId);
+    public List<UsuarioDTO> listarAmigos(Long usuarioId) {
+        List<Usuario> amigos = usuarioRepository.obtenerAmigos(usuarioId);
+        return amigos.stream()
+                .filter(amigo -> !amigo.getUsuarioId().equals(usuarioId))
+                .map(amigo -> new UsuarioDTO(amigo.getUsuarioId(), amigo.getUsername(), amigo.getFechaRegistro()))
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.back.backaio.Repository;
 
-import com.back.backaio.Models.Grupo;
+import com.back.backaio.Model.Grupo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

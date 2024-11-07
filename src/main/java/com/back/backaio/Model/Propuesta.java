@@ -1,4 +1,4 @@
-package com.back.backaio.Models;
+package com.back.backaio.Model;
 
 import jakarta.persistence.*;
 import lombok.*;

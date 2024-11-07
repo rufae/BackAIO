@@ -1,11 +1,14 @@
 package com.back.backaio.Services;
 
-import com.back.backaio.Models.Grupo;
-import com.back.backaio.Models.Viaje;
+import com.back.backaio.Model.Grupo;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface IGrupoService {
+
+    List<Grupo> obtenerTodosLosGrupos();
 
     Grupo crearGrupo(Grupo grupo);
 

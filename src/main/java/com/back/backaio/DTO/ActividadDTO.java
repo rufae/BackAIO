@@ -1,8 +1,11 @@
-package com.back.backaio.Models;
+package com.back.backaio.DTO;
 
+import com.back.backaio.Model.TipoActividad;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+@Data
 @Getter
 @Setter
 public class ActividadDTO {

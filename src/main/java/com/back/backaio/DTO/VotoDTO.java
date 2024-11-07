@@ -1,8 +1,12 @@
-package com.back.backaio.Models;
+package com.back.backaio.DTO;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 public class VotoDTO {
 
     private Long votoId;

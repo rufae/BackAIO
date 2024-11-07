@@ -1,11 +1,10 @@
-package com.back.backaio.Models;
+package com.back.backaio.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
 import java.util.Set;
-import java.util.List;
 
 @Getter
 @Setter

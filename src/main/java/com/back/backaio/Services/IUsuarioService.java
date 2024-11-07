@@ -1,6 +1,10 @@
 package com.back.backaio.Services;
 
-import com.back.backaio.Models.*;
+import com.back.backaio.DTO.ActividadConVotosDTO;
+import com.back.backaio.DTO.ActividadDTO;
+import com.back.backaio.DTO.UsuarioDTO;
+import com.back.backaio.DTO.VotoDTO;
+import com.back.backaio.Model.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,7 +12,7 @@ import java.util.List;
 @Service
 public interface IUsuarioService {
 
-    List<Usuario> listarAmigos(Long usuarioId);
+    List<UsuarioDTO> listarAmigos(Long usuarioId);
 
     List<Grupo> listarGruposPorUsuario(Long usuarioId);
 
