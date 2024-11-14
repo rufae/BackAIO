@@ -10,12 +10,14 @@ public interface IGrupoService {
 
     List<Grupo> obtenerTodosLosGrupos();
 
-    Grupo crearGrupo(Grupo grupo);
+    Grupo crearGrupo(Grupo grupo, Long usuarioId);
 
     Grupo anyadirParticipante(Long grupoId, Long usuarioId);
 
     Grupo verParticipantesViajes(Long grupoId);
 
     Grupo eliminarParticipantesViajes(Long grupoId, Long usuarioId);
+
+    List<Grupo> obtenerGruposPorUsuario(Long usuarioId);
 
 }

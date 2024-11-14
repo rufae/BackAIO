@@ -38,4 +38,6 @@ public class Usuario {
     )
     private Set<Usuario> amigos;
 
+    public Usuario(Long usuarioId) {
+    }
 }

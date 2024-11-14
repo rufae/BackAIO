@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -30,7 +31,10 @@ public class Grupo {
 
     @Column(name = "fechaCreacion")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date fechaCreacion;
+    private LocalDate fechaCreacion;
+
+    @Column(name = "imagen")
+    private String imagen;
 
     @ManyToMany
     @JoinTable(

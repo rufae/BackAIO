@@ -40,4 +40,6 @@ public class Actividad {
     @Column(name = "tipo_actividad", nullable = false)
     private TipoActividad tipoActividad;
 
+    public Actividad(Long actividadId) {
+    }
 }

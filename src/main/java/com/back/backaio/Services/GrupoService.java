@@ -6,7 +6,10 @@ import com.back.backaio.Repository.GrupoRepository;
 import com.back.backaio.Repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GrupoService implements IGrupoService{
@@ -24,8 +27,23 @@ public class GrupoService implements IGrupoService{
         return gruporepository.findAll();
     }
 
+    public List<Grupo> obtenerGruposPorUsuario(Long usuarioId) {
+        return gruporepository.findGruposByUsuarioId(usuarioId);
+    }
+
+    public Optional<Grupo> encontrarGrupoPorId(Long grupoId) {
+        return gruporepository.findById(grupoId);
+    }
+
     @Override
-    public Grupo crearGrupo(Grupo grupo) {
+    public Grupo crearGrupo(Grupo grupo, Long usuarioId) {
+        Usuario participante = usuariorepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("No existe el usuario"));
+        if (grupo.getUsuarios() == null) {
+            grupo.setUsuarios(new HashSet<>());
+        }
+
+        grupo.getUsuarios().add(participante);
+        grupo.setFechaCreacion(LocalDate.now());
         return gruporepository.save(grupo);
     }
 

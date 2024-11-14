@@ -28,9 +28,15 @@ public class GrupoController {
         return ResponseEntity.ok(grupos);
     }
 
+    @GetMapping("/usuario/{usuarioId}/grupos")
+    public ResponseEntity<List<Grupo>> obtenerGruposPorUsuario(@PathVariable Long usuarioId) {
+        List<Grupo> grupos = grupoService.obtenerGruposPorUsuario(usuarioId);
+        return ResponseEntity.ok(grupos);
+    }
+
     @PostMapping("/nuevo")
-    public ResponseEntity<Grupo> crearGrupo(@RequestBody Grupo nuevoGrupo) {
-        Grupo grupocreado = grupoService.crearGrupo(nuevoGrupo);
+    public ResponseEntity<Grupo> crearGrupo(@RequestBody Grupo nuevoGrupo, @RequestParam Long usuarioId) {
+        Grupo grupocreado = grupoService.crearGrupo(nuevoGrupo, usuarioId);
         return ResponseEntity.ok(grupocreado);
     }
 
@@ -50,6 +56,13 @@ public class GrupoController {
     public ResponseEntity<Grupo> eliminarParticipante(@RequestParam Long grupoId, @RequestParam Long usuarioId) {
         Grupo eliminarParticipante = grupoService.eliminarParticipantesViajes(grupoId, usuarioId);
         return ResponseEntity.ok(eliminarParticipante);
+    }
+
+    @GetMapping("/grupo/{grupoId}")
+    public ResponseEntity<Grupo> obtenerGrupoPorId(@PathVariable Long grupoId) {
+        return grupoService.encontrarGrupoPorId(grupoId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 }
