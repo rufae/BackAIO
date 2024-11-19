@@ -21,4 +21,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
             "WHERE u.usuarioId = :idUsuario OR a.usuarioId = :idUsuario")
     List<Usuario> obtenerAmigos(@Param("idUsuario") Long idUsuario);
 
+    Usuario findByUsername(String username);
+
 }

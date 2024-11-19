@@ -1,10 +1,7 @@
 package com.back.backaio.Controllers;
 
 
-import com.back.backaio.DTO.ActividadConVotosDTO;
-import com.back.backaio.DTO.ActividadDTO;
-import com.back.backaio.DTO.UsuarioDTO;
-import com.back.backaio.DTO.VotoDTO;
+import com.back.backaio.DTO.*;
 import com.back.backaio.Model.*;
 import com.back.backaio.Services.UsuarioService;
 import org.springframework.http.ResponseEntity;
@@ -67,4 +64,31 @@ public class UsuarioController {
         }
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        Usuario usuario = usuarioService.validarCredenciales(loginRequest.getUsername(), loginRequest.getPassword());
+        if (usuario == null) {
+            return ResponseEntity.status(401).body("Usuario o contraseña incorrectos");
+        }
+
+        return ResponseEntity.ok(new LoginResponse(usuario.getUsuarioId(), "tokenEjemplo"));
+    }
+
+    @GetMapping("usuarios/{id}")
+    public ResponseEntity<UsuarioDTO> obtenerUsuarioPorId(@PathVariable Long id) {
+        UsuarioDTO usuario = usuarioService.obtenerUsuarioPorId(id);
+        if (usuario != null) {
+            return ResponseEntity.ok(usuario);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("usuarios/{id}/grupos")
+    public ResponseEntity<List<Grupo>> obtenerGruposPorUsuario(@PathVariable Long id) {
+        List<Grupo> grupos = usuarioService.listarGruposPorUsuario(id);
+        if (!grupos.isEmpty()) {
+            return ResponseEntity.ok(grupos);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

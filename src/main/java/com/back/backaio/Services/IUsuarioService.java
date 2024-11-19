@@ -21,4 +21,6 @@ public interface IUsuarioService {
     VotoDTO votarActividad(Long actividadId, Long usuarioId, Boolean votoAFavor);
 
     List<ActividadConVotosDTO> verActividades(Long grupoId);
+
+    Usuario validarCredenciales(String username, String password);
 }

@@ -40,8 +40,8 @@ public class Grupo {
     @JoinTable(
             name = "usuario_grupo",
             schema = "aio",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "grupo_id")
+            joinColumns = @JoinColumn(name = "grupo_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
     private Set<Usuario> usuarios;
 

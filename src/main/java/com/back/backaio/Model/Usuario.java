@@ -30,6 +30,12 @@ public class Usuario {
     @Column(name = "fechaRegistro")
     private Date fechaRegistro;
 
+    @JoinColumn(name = "bio")
+    private String bio;
+
+    @JoinColumn(name = "imagen")
+    private String imagen;
+
     @ManyToMany
     @JoinTable(
             name = "amistad",

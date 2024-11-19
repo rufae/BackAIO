@@ -138,4 +138,17 @@ public class UsuarioService implements IUsuarioService {
         }).collect(Collectors.toList());
     }
 
+    public Usuario validarCredenciales(String username, String password) {
+        Usuario usuario = usuarioRepository.findByUsername(username);
+        if (usuario != null && usuario.getPassword().equals(password)) {
+            return usuario;
+        }
+        return null;
+    }
+
+    public UsuarioDTO obtenerUsuarioPorId(Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        return new UsuarioDTO(usuario.getUsuarioId(), usuario.getUsername(), usuario.getFechaRegistro());
+    }
 }
