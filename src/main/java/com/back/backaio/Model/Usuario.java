@@ -30,10 +30,10 @@ public class Usuario {
     @Column(name = "fechaRegistro")
     private Date fechaRegistro;
 
-    @JoinColumn(name = "bio")
+    @Column(name = "bio")
     private String bio;
 
-    @JoinColumn(name = "imagen")
+    @Column(name = "imagen")
     private String imagen;
 
     @ManyToMany

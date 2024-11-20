@@ -39,7 +39,7 @@ public class UsuarioService implements IUsuarioService {
         List<Usuario> amigos = usuarioRepository.obtenerAmigos(usuarioId);
         return amigos.stream()
                 .filter(amigo -> !amigo.getUsuarioId().equals(usuarioId))
-                .map(amigo -> new UsuarioDTO(amigo.getUsuarioId(), amigo.getUsername(), amigo.getFechaRegistro()))
+                .map(amigo -> new UsuarioDTO(amigo.getUsuarioId(), amigo.getUsername(), amigo.getFechaRegistro(), amigo.getBio(), amigo.getImagen()))
                 .collect(Collectors.toList());
     }
 
@@ -149,6 +149,6 @@ public class UsuarioService implements IUsuarioService {
     public UsuarioDTO obtenerUsuarioPorId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        return new UsuarioDTO(usuario.getUsuarioId(), usuario.getUsername(), usuario.getFechaRegistro());
+        return new UsuarioDTO(usuario.getUsuarioId(), usuario.getUsername(), usuario.getFechaRegistro(), usuario.getBio(), usuario.getImagen());
     }
 }
