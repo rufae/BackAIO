@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -43,7 +44,7 @@ public class Grupo {
             joinColumns = @JoinColumn(name = "grupo_id"),
             inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
-    private Set<Usuario> usuarios;
+    private Set<Usuario> usuarios = new HashSet<>();
 
 
 

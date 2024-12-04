@@ -37,6 +37,13 @@ public class GrupoService implements IGrupoService{
 
     @Override
     public Grupo crearGrupo(Grupo grupo, Long usuarioId) {
+        if (grupo == null || grupo.getNombre() == null || grupo.getNombre().isEmpty()) {
+            throw new IllegalArgumentException("El grupo debe tener un nombre válido");
+        }
+        if (usuarioId == null) {
+            throw new IllegalArgumentException("El usuarioId no puede ser null");
+        }
+
         Usuario participante = usuariorepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("No existe el usuario"));
         if (grupo.getUsuarios() == null) {
             grupo.setUsuarios(new HashSet<>());
@@ -52,6 +59,10 @@ public class GrupoService implements IGrupoService{
         Grupo grupo = gruporepository.findById(grupoId).orElseThrow(() -> new RuntimeException("No existe el grupo"));
         Usuario participante = usuariorepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("No existe el usuario"));
 
+        if (grupo.getUsuarios().contains(participante)) {
+            throw new IllegalStateException("El usuario ya está en el grupo");
+        }
+
         grupo.getUsuarios().add(participante);
         return gruporepository.save(grupo);
 
@@ -66,6 +77,11 @@ public class GrupoService implements IGrupoService{
     public Grupo eliminarParticipantesViajes(Long grupoId, Long usuarioId) {
         Grupo grupo = gruporepository.findById(grupoId).orElseThrow(() -> new RuntimeException("No existe el grupo"));
         Usuario participante = usuariorepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("No existe el usuario"));
+
+        if (!grupo.getUsuarios().contains(participante)) {
+            throw new IllegalStateException("El usuario no pertenece al grupo");
+        }
+
         grupo.getUsuarios().remove(participante);
 
         return gruporepository.save(grupo);

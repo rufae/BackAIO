@@ -132,7 +132,7 @@ public class UsuarioService implements IUsuarioService {
                     .map(voto -> new VotoDTO(voto.getVotoId(), voto.isVotoAFavor(), voto.getActividad().getActividadId(), voto.getUsuario().getUsuarioId()))
                     .collect(Collectors.toList());
 
-            dto.setVotos(votosDTO); // Asegúrate de que ActividadConVotosDTO tiene este campo
+            dto.setVotos(votosDTO);
 
             return dto;
         }).collect(Collectors.toList());
